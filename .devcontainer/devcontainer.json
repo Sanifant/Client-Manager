@@ -1,0 +1,33 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/debian
+{
+	// "image": "nextcloud",
+
+	// "dockerComposeFile": "docker-compose.yml",
+    // "service": "devcontainer",
+
+	"build": {
+        // Path is relataive to the devcontainer.json file.
+        "dockerfile": "Dockerfile",
+		"args": {
+			"SQLITE_DATABASE":"nextcloud_db",
+			"ENV NEXTCLOUD_ADMIN_USER":"admin",
+			"ENV NEXTCLOUD_ADMIN_PASSWORD":"admin"
+
+		}
+    },
+
+    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [8080]
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
