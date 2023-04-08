@@ -1,29 +1,34 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/debian
 {
-	// "image": "nextcloud",
+	//"image": "nextcloud",
 
 	// "dockerComposeFile": "docker-compose.yml",
     // "service": "devcontainer",
 
 	"build": {
         // Path is relataive to the devcontainer.json file.
-        "dockerfile": "Dockerfile",
-		"args": {
-			"SQLITE_DATABASE":"nextcloud_db",
-			"ENV NEXTCLOUD_ADMIN_USER":"admin",
-			"ENV NEXTCLOUD_ADMIN_PASSWORD":"admin"
-
-		}
+        "dockerfile": "Dockerfile"
     },
+	"containerEnv": {
+		"SQLITE_DATABASE":"nextcloud_db",
+		"NEXTCLOUD_ADMIN_USER":"admin",
+		"NEXTCLOUD_ADMIN_PASSWORD":"admin",
+		"NEXTCLOUD_ADDIN_NAME":"${localWorkspaceFolderBasename}"
+	},
+	
+	"overrideCommand": false,
 
+	// "postStartCommand": "mkdir -p -v /var/www/html/custom_apps",
+	// "workspaceMount": "source=/workspaces/${localWorkspaceFolderBasename},target=/var/www/html/custom_apps/${localWorkspaceFolderBasename},type=bind",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	"postStartCommand": "ln -sf /workspaces/${localWorkspaceFolderBasename} /var/www/html/custom_apps/${localWorkspaceFolderBasename}",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [8080]
+	"forwardPorts": [80,8080]
 
 	// Configure tool-specific properties.
 	// "customizations": {},

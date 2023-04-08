@@ -1,9 +1,0 @@
-version: '2'
-
-services:
-  devcontainer:
-    build:
-      context: ..
-      dockerfile: .devcontainer/Dockerfile
-    ports:
-      - 8080:80
