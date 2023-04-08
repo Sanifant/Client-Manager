@@ -7,9 +7,9 @@ services:
     volumes:
       - db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB_FILE=nextcloud_db
-      - POSTGRES_USER_FILE=nextcloud_db_user
-      - POSTGRES_PASSWORD_FILE=postgres_password
+      - POSTGRES_DB=nextcloud_db
+      - POSTGRES_USER=nextcloud_db_user
+      - POSTGRES_PASSWORD=postgres_password
 
   app:
     build: .devcontainer
