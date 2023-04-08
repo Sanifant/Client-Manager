@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD_FILE=postgres_password
 
   app:
-    image: nextcloud
+    build: .devcontainer
     restart: always
     ports:
       - 8080:80
