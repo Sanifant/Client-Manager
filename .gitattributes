@@ -1,3 +1,8 @@
 # SPDX-FileCopyrightText: Stefan Petersen <stefan@openelp.de>
 # SPDX-License-Identifier: AGPL-3.0-or-later
 /js/* binary
+
+* text=auto eol=lf
+
+*.{cmd,[cC][mM][dD]} text eol=crlf
+*.{bat,[bB][aA][tT]} text eol=crlf
