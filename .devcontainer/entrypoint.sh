@@ -13,6 +13,7 @@ directory_empty() {
 
 run_as() {
     if [ "$(id -u)" = 0 ]; then
+        echo "  Running as user $user"
         su -p "$user" -s /bin/sh -c "$1"
     else
         sh -c "$1"
@@ -141,8 +142,9 @@ fi
                 sleep 10s
             done
             
+            echo "Setting nextcloud debug configuration"
             try=0
-            until run_as 'php /var/www/html/occ onfig:system:set debug --value="true" --type=boolean' || [ "$try" -gt "$max_retries" ]
+            until run_as 'php /var/www/html/occ config:system:set debug --value="true" --type=boolean' || [ "$try" -gt "$max_retries" ]
             do
                 echo "Retrying install..."
                 try=$((try+1))
