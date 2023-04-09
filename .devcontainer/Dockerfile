@@ -116,8 +116,6 @@ RUN { \
     chown -R www-data:root /var/www; \
     chmod -R g=u /var/www
 
-VOLUME /var/www/html
-
 RUN a2enmod headers rewrite remoteip ;\
     {\
      echo RemoteIPHeader X-Real-IP ;\
@@ -127,7 +125,8 @@ RUN a2enmod headers rewrite remoteip ;\
     } > /etc/apache2/conf-available/remoteip.conf;\
     a2enconf remoteip
 
-ENV NEXTCLOUD_VERSION 26.0.0
+# ENV NEXTCLOUD_VERSION 26.0.0
+ENV NEXTCLOUD_VERSION 24.0.11
 
 RUN set -ex; \
     fetchDeps=" \
@@ -156,7 +155,8 @@ RUN set -ex; \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $fetchDeps; \
     rm -rf /var/lib/apt/lists/*
 
-COPY *.sh upgrade.exclude /
+COPY *.sh /
+COPY config/* /usr/src/nextcloud/config/
 
 RUN rsync -rlDog --chown www-data:www-data --delete --exclude 'custom_apps' /usr/src/nextcloud/ /var/www/html/
 

@@ -141,7 +141,14 @@ fi
                 sleep 10s
             done
             
-            until run_as 'php /var/www/html/occ onfig:system:set debug --value="true" --type=boolean'
+            try=0
+            until run_as 'php /var/www/html/occ onfig:system:set debug --value="true" --type=boolean' || [ "$try" -gt "$max_retries" ]
+            do
+                echo "Retrying install..."
+                try=$((try+1))
+                sleep 10s
+            done
+            
             if [ "$try" -gt "$max_retries" ]; then
                 echo "Installing of nextcloud failed!"
                 exit 1
