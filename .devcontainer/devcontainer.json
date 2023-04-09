@@ -20,9 +20,9 @@
 	"overrideCommand": false,
 
 	// "postStartCommand": "mkdir -p -v /var/www/html/custom_apps",
-	// "workspaceMount": "source=/workspaces/${localWorkspaceFolderBasename},target=/var/www/html/custom_apps/${localWorkspaceFolderBasename},type=bind",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-	"postStartCommand": "ln -sf /workspaces/${localWorkspaceFolderBasename} /var/www/html/custom_apps/${localWorkspaceFolderBasename}",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/var/www/html/custom_apps/${localWorkspaceFolderBasename},type=bind",
+    "workspaceFolder": "/var/www/html/custom_apps/${localWorkspaceFolderBasename}",
+	// "postStartCommand": "ln -sf /workspaces/${localWorkspaceFolderBasename} /var/www/html/custom_apps/${localWorkspaceFolderBasename}",
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
