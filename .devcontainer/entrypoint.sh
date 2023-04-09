@@ -91,9 +91,9 @@ fi
         rsync_options="-rlD"
     fi
 
-    rsync $rsync_options --delete --exclude '/custom_apps' /usr/src/nextcloud/ /var/www/html/
+    # rsync $rsync_options --delete --exclude '/custom_apps' /usr/src/nextcloud/ /var/www/html/
 
-    echo "New nextcloud instance"
+    echo "New nextcloud instance for $user:$group"
 
     file_env NEXTCLOUD_ADMIN_PASSWORD
     file_env NEXTCLOUD_ADMIN_USER
@@ -137,7 +137,7 @@ fi
             try=0
             until run_as "php /var/www/html/occ maintenance:install $install_options" || [ "$try" -gt "$max_retries" ]
             do
-                echo "Retrying install..."
+                echo "Trying $try of $max_retries installs..."
                 try=$((try+1))
                 sleep 10s
             done
@@ -146,7 +146,7 @@ fi
             try=0
             until run_as 'php /var/www/html/occ config:system:set debug --value="true" --type=boolean' || [ "$try" -gt "$max_retries" ]
             do
-                echo "Retrying install..."
+                echo "Trying $try of $max_retries settings change..."
                 try=$((try+1))
                 sleep 10s
             done

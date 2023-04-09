@@ -1,11 +1,11 @@
 {
   "name": "clientmanager",
-  "description": "Application to manage clients",
+  "description": "Dynamic List Management",
   "version": "0.0.1",
   "author": "Stefan Petersen <stefan@openelp.de>",
   "contributors": [],
   "bugs": {
-    "url": "https://github.com/Sanifant/Client-Manager/issues"
+    "url": "https://github.com/Sanifant/client-manager/issues"
   },
   "license": "agpl",
   "private": true,

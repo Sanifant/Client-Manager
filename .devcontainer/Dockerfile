@@ -125,8 +125,8 @@ RUN a2enmod headers rewrite remoteip ;\
     } > /etc/apache2/conf-available/remoteip.conf;\
     a2enconf remoteip
 
-# ENV NEXTCLOUD_VERSION 26.0.0
-ENV NEXTCLOUD_VERSION 24.0.11
+ENV NEXTCLOUD_VERSION 26.0.0
+# ENV NEXTCLOUD_VERSION 24.0.11
 
 RUN set -ex; \
     fetchDeps=" \
@@ -150,6 +150,7 @@ RUN set -ex; \
     rm -rf "$GNUPGHOME" /usr/src/nextcloud/updater; \
     mkdir -p /usr/src/nextcloud/data; \
     mkdir -p /usr/src/nextcloud/custom_apps; \
+    mkdir -p /usr/src/nextcloud/apps-extra; \
     chmod +x /usr/src/nextcloud/occ; \
     \
     apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false $fetchDeps; \
@@ -158,7 +159,7 @@ RUN set -ex; \
 COPY *.sh /
 COPY config/* /usr/src/nextcloud/config/
 
-RUN rsync -rlDog --chown www-data:www-data --delete --exclude 'custom_apps' /usr/src/nextcloud/ /var/www/html/
+RUN rsync -rlDog --chown www-data:root --delete /usr/src/nextcloud/ /var/www/html/
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["apache2-foreground"]

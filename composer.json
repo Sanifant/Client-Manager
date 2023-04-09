@@ -1,6 +1,6 @@
 {
 	"name": "nextcloud/clientmanager",
-	"description": "Application to manage clients",
+	"description": "Dynamic List Management",
 	"type": "project",
 	"license": "AGPL-3.0-or-later",
 	"authors": [
