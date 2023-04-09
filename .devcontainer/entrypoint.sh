@@ -90,7 +90,7 @@ fi
         rsync_options="-rlD"
     fi
 
-    rsync $rsync_options --delete --exclude '' /usr/src/nextcloud/ /var/www/html/
+    rsync $rsync_options --delete --exclude '/custom_apps' /usr/src/nextcloud/ /var/www/html/
 
     echo "New nextcloud instance"
 
