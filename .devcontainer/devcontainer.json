@@ -1,38 +1,29 @@
-// For format details, see https://aka.ms/devcontainer.json. For config options, see the
-// README at: https://github.com/devcontainers/templates/tree/main/src/debian
 {
-	//"image": "nextcloud",
-
-	// "dockerComposeFile": "docker-compose.yml",
-    // "service": "devcontainer",
-
-	"build": {
-        // Path is relataive to the devcontainer.json file.
-        "dockerfile": "Dockerfile"
+    "image": "ghcr.io/juliushaertl/nextcloud-dev-php80:latest",
+    "forwardPorts": [80],
+    "containerEnv": {
+        "NEXTCLOUD_AUTOINSTALL_APPS": "deck",
+		"XDEBUG_MODE": "debug"
     },
-	"containerEnv": {
-		"SQLITE_DATABASE":"nextcloud_db",
-		"NEXTCLOUD_ADMIN_USER":"admin",
-		"NEXTCLOUD_ADMIN_PASSWORD":"admin",
-		"NEXTCLOUD_ADDIN_NAME":"${localWorkspaceFolderBasename}"
+    "customizations": {
+		"vscode": {
+			"extensions": [
+				"felixfbecker.php-intellisense",
+				"octref.vetur"
+			],
+			"settings": {
+				"php.suggest.basic": false,
+				"git.alwaysSignOff": true
+			}
+		}
 	},
-	
-	"overrideCommand": false,
-
-	// "postStartCommand": "mkdir -p -v /var/www/html/custom_apps",
-	"workspaceMount": "source=${localWorkspaceFolder},target=/var/www/html/apps-extra/${localWorkspaceFolderBasename},type=bind",
-    "workspaceFolder": "/var/www/html/apps-extra/${localWorkspaceFolderBasename}",
-	// "postStartCommand": "ln -sf /workspaces/${localWorkspaceFolderBasename} /var/www/html/custom_apps/${localWorkspaceFolderBasename}",
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	// "features": {},
-
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [80,8080]
-
-	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	// "remoteUser": "root"
+	"workspaceMount": "source=${localWorkspaceFolder},target=/var/www/html/apps-extra/deck,type=bind",
+	"workspaceFolder": "/var/www/html/apps-extra/clientmanager",
+	"overrideCommand": true,
+	"postAttachCommand": "bash ./.devcontainer/setup.sh",
+	"portsAttributes": {
+		"80": {
+			"label": "Webserver"
+		}
+	}
 }
