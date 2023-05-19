@@ -1,16 +1,33 @@
 <?php
-declare(strict_types=1);
-// SPDX-FileCopyrightText: Stefan Petersen <stefan@openelp.de>
-// SPDX-License-Identifier: AGPL-3.0-or-later
-
 namespace OCA\ClientManager\AppInfo;
 
 use OCP\AppFramework\App;
+use OCP\AppFramework\Bootstrap\IRegistrationContext;
+use OCP\AppFramework\Bootstrap\IBootContext;
+use OCP\AppFramework\Bootstrap\IBootstrap;
 
-class Application extends App {
+use OCA\ClientManager\DB\Client;
+
+/**
+ * Class Application
+ *
+ * @package OCA\ClientManager\AppInfo
+ */
+class Application extends App implements IBootstrap {
 	public const APP_ID = 'clientmanager';
 
-	public function __construct() {
-		parent::__construct(self::APP_ID);
+	/**
+	 * Constructor
+	 *
+	 * @param array $urlParams
+	 */
+	public function __construct(array $urlParams = []) {
+		parent::__construct(self::APP_ID, $urlParams);
+	}
+
+	public function register(IRegistrationContext $context): void {
+	}
+
+	public function boot(IBootContext $context): void {
 	}
 }

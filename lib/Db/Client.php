@@ -18,15 +18,15 @@ use OCP\AppFramework\Db\Entity;
  * @method getUserId(): string
  * @method setUserId(string $userId): void
  */
-class Note extends Entity implements JsonSerializable {
-	protected string $title = '';
+class Client extends Entity implements JsonSerializable {
+	protected string $name = '';
 	protected string $content = '';
-	protected string $userId = '';
+	protected string $Id = '';
 
 	public function jsonSerialize(): array {
 		return [
 			'id' => $this->id,
-			'title' => $this->title,
+			'name' => $this->name,
 			'content' => $this->content
 		];
 	}

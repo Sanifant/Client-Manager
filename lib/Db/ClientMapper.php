@@ -14,22 +14,22 @@ use OCP\IDBConnection;
 /**
  * @template-extends QBMapper<Note>
  */
-class NoteMapper extends QBMapper {
+class ClientMapper extends QBMapper {
 	public function __construct(IDBConnection $db) {
-		parent::__construct($db, 'clientmanager', Note::class);
+		parent::__construct($db, 'clientmanager', Client::class);
 	}
 
 	/**
 	 * @throws \OCP\AppFramework\Db\MultipleObjectsReturnedException
 	 * @throws DoesNotExistException
 	 */
-	public function find(int $id, string $userId): Note {
+	public function find(int $id, string $userId): Client {
 		/* @var $qb IQueryBuilder */
 		$qb = $this->db->getQueryBuilder();
 		$qb->select('*')
 			->from('clientmanager')
 			->where($qb->expr()->eq('id', $qb->createNamedParameter($id, IQueryBuilder::PARAM_INT)))
-			->andWhere($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
+			->andWhere($qb->expr()->eq('id', $qb->createNamedParameter($Id)));
 		return $this->findEntity($qb);
 	}
 

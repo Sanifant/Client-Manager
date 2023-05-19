@@ -1,6 +1,16 @@
 <?php
-declare(strict_types=1);
-// SPDX-FileCopyrightText: Stefan Petersen <stefan@openelp.de>
-// SPDX-License-Identifier: AGPL-3.0-or-later
+use OCP\Util;
+$appId = OCA\ClientManager\AppInfo\Application::APP_ID;
+Util::addScript($appId, $appId . '-mainScript');
+Util::addStyle($appId, 'main');
 ?>
-<div id="content"></div>
+
+<div id="app-content">
+<?php
+if ($_['app_version']) {
+    // you can get the values you injected as template parameters in the "$_" array
+    echo '<h3>Client Manager app version: ' . $_['app_version'] . '</h3>';
+}
+?>
+    <div id="clientmanager"></div>
+</div>

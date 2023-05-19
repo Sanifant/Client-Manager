@@ -20,8 +20,11 @@
     </dependencies>
     <navigations>
         <navigation>
+            <id>tutorialtwo</id>
             <name>Client Manager</name>
             <route>clientmanager.page.index</route>
+            <icon>app.svg</icon>
+            <order>8</order>
         </navigation>
     </navigations>
 </info>
