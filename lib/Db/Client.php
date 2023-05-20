@@ -24,10 +24,18 @@ class Client extends Entity implements JsonSerializable {
 	protected string $Id = '';
 
 	public function jsonSerialize(): array {
-		return [
+		$client = [
 			'id' => $this->id,
 			'name' => $this->name,
 			'content' => $this->content
 		];
+
+		for ($i=0; $i<2; $i++) { 
+			//array_push($client, "Key".$i, "Wert");
+
+			$client["key".$i] = "Value";
+		}
+
+		return $client;
 	}
 }

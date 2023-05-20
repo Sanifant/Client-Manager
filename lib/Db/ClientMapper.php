@@ -38,11 +38,25 @@ class ClientMapper extends QBMapper {
 	 * @return array
 	 */
 	public function findAll(string $userId): array {
-		/* @var $qb IQueryBuilder */
-		$qb = $this->db->getQueryBuilder();
-		$qb->select('*')
-			->from('clientmanager')
-			->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
-		return $this->findEntities($qb);
+		// /* @var $qb IQueryBuilder */
+		// $qb = $this->db->getQueryBuilder();
+		// $qb->select('*')
+		// 	->from('clientmanager');
+		// 	//->where($qb->expr()->eq('user_id', $qb->createNamedParameter($userId)));
+		// return $this->findEntities($qb);
+
+		
+		$returnValue = array();
+
+		for ($i=0; $i < 10; $i++) { 
+			$client = new Client();
+			$client->setId($i);
+			$client->setName('Name '.$i);
+			$client->setContent('Testcontent');
+
+			array_push($returnValue, $client);
+		}		
+
+		return $returnValue;
 	}
 }

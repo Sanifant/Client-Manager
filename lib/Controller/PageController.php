@@ -1,4 +1,7 @@
 <?php
+declare(strict_types=1);
+// SPDX-FileCopyrightText: Stefan Petersen <stefan@openelp.de>
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 namespace OCA\ClientManager\Controller;
 
@@ -28,6 +31,7 @@ use OCP\IRequest;
 
 use OCA\ClientManager\AppInfo\Application;
 use OCA\ClientManager\Db\Client;
+use OCA\ClientManager\Service\ClientService;
 
 class PageController extends Controller {
 
@@ -50,8 +54,11 @@ class PageController extends Controller {
 	 */
 	private $userId;
 
+	private ClientService $service;
+
 	public function __construct(string $appName,
 								IRequest $request,
+								ClientService $clientService,
 								IInitialState $initialStateService,
 								IConfig $config,
 								?string $userId) {
@@ -59,6 +66,7 @@ class PageController extends Controller {
 		$this->initialStateService = $initialStateService;
 		$this->config = $config;
 		$this->userId = $userId;
+		$this->service = $clientService;
 	}
 
 	/**
@@ -72,9 +80,10 @@ class PageController extends Controller {
 	 * @return TemplateResponse
 	 */
 	public function mainPage(): TemplateResponse {
-		$clients = $this->getClients();
+		$clients = $this->service->findAll($this->userId);
 		$fixedGifSize = $this->config->getUserValue($this->userId, Application::APP_ID, self::FIXED_GIF_SIZE_CONFIG_KEY);
 		$myInitialState = [
+			'userid' => $userId,
 			'clientList' => $clients,
 			self::FIXED_GIF_SIZE_CONFIG_KEY => $fixedGifSize,
 		];
@@ -90,19 +99,6 @@ class PageController extends Controller {
 		);
 	}
 
-	private function getClients(): array {
-		$returnValue = array();
-
-		for ($i=0; $i < 10; $i++) { 
-			$client = new Client();
-			$client->setId($i);
-			$client->setName('Name ');
-
-			array_push($returnValue, $client);
-		}
-
-		return $returnValue;
-	}
 	/**
 	 * Get the names of files stored in apps/my_app/img/gifs/
 	 *

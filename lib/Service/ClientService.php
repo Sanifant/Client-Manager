@@ -10,13 +10,13 @@ use Exception;
 use OCP\AppFramework\Db\DoesNotExistException;
 use OCP\AppFramework\Db\MultipleObjectsReturnedException;
 
-use OCA\ClientManager\Db\Note;
-use OCA\ClientManager\Db\NoteMapper;
+use OCA\ClientManager\Db\Client;
+use OCA\ClientManager\Db\ClientMapper;
 
-class NoteService {
-	private NoteMapper $mapper;
+class ClientService {
+	private ClientMapper $mapper;
 
-	public function __construct(NoteMapper $mapper) {
+	public function __construct(ClientMapper $mapper) {
 		$this->mapper = $mapper;
 	}
 
@@ -33,7 +33,7 @@ class NoteService {
 	private function handleException(Exception $e) {
 		if ($e instanceof DoesNotExistException ||
 			$e instanceof MultipleObjectsReturnedException) {
-			throw new NoteNotFound($e->getMessage());
+			throw new ClientNotFound($e->getMessage());
 		} else {
 			throw $e;
 		}

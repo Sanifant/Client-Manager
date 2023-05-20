@@ -5,5 +5,5 @@ declare(strict_types=1);
 
 namespace OCA\ClientManager\Service;
 
-class NoteNotFound extends \Exception {
+class ClientNotFound extends \Exception {
 }

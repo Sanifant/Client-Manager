@@ -17391,6 +17391,7 @@ function main() {
   // this is the empty div from the template (/templates/myMainTemplate.php)
   var tutorialDiv = document.querySelector('#app-content #clientmanager');
   console.info("Test");
+  console.info("UserId: " + state.userid);
   addClients(tutorialDiv, state);
   addConfigButton(tutorialDiv, state);
 
@@ -17407,44 +17408,18 @@ function addHeaders(table, keys) {
 function addClients(container, state) {
   var clientList = state.clientList;
   var table = document.createElement('table');
-  var headers = ["ID", "Name", "Content"];
   for (var i = 0; i < clientList.length; i++) {
-    var row = table.insertRow(i);
-    row.insertCell(0).innerHTML = clientList[i].id;
-    row.insertCell(1).innerHTML = clientList[i].name;
-    row.insertCell(2).innerHTML = clientList[i].content;
-  }
-  var header = table.createTHead();
-  var headerRow = header.insertRow(0);
-  for (var i = 0; i < headers.length; i++) {
-    headerRow.insertCell(i).innerHTML = headers[i];
+    var client = clientList[i];
+    if (i === 0) {
+      addHeaders(table, Object.keys(client));
+    }
+    var row = table.insertRow();
+    Object.keys(client).forEach(function (k) {
+      var cell = row.insertCell();
+      cell.appendChild(document.createTextNode(client[k]));
+    });
   }
   container.appendChild(table);
-}
-function addGifs(container, state) {
-  var fileNameList = state.file_name_list;
-  // for each file, we create a div which contains a button and an image
-  fileNameList.forEach(function (name) {
-    var fileDiv = document.createElement('div');
-    fileDiv.classList.add('gif-wrapper');
-    var img = document.createElement('img');
-    img.setAttribute('src', (0,_nextcloud_router__WEBPACK_IMPORTED_MODULE_0__.imagePath)('clientmanager', 'gifs/' + name));
-    img.style.display = 'none';
-
-    // the button toggles the image visibility
-    var button = document.createElement('button');
-    button.innerText = 'Show/hide ' + name;
-    button.addEventListener('click', function (e) {
-      if (img.style.display === 'block') {
-        img.style.display = 'none';
-      } else {
-        img.style.display = 'block';
-      }
-    });
-    fileDiv.append(button);
-    fileDiv.append(img);
-    container.append(fileDiv);
-  });
 }
 function addConfigButton(container, state) {
   // add a button to switch theme
